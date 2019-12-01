@@ -1,0 +1,50 @@
+Alava-324126
+Albacete-392118
+Alicante-1836459
+Almeria-704297
+Asturias-1042608
+Avila-162514
+Badajoz-684113
+Balears, Illes-1107220
+Barcelona-5542680
+Bizkaia-1147576
+Burgos-360995
+Caceres-403665
+Cadiz-1239889
+Cantabria-582206
+Castellon-579245
+Ciudad Real-506888
+Cordoba-791610
+Coruña, A-1122799
+Cuenca-201071
+Gipuzkoa-717832
+Girona-753576
+Granada-915392
+Guadalajara-252882
+Huelva-519596
+Huesca-221079
+Jaen-648250
+Leon-473604
+Lleida-434041
+Lugo-336527
+Madrid-6466996
+Malaga-1629298
+Murcia-1464847
+Navarra-777444
+Ourense-314853
+Palencia-164644
+Palmas, Las-1097800
+Pontevedra-944346
+Rioja, La-315794
+Salamanca-335985
+Santa Cruz de Tenerife-1004124
+Segovia-155652
+Sevilla-1939775
+Soria-90040
+Tarragona-792299
+Teruel-137654
+Toledo-688672
+Valencia-2657567
+Valladolid-523679
+Zamora-180406
+Zaragoza-950507

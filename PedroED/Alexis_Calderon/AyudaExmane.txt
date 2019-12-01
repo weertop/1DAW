@@ -1,0 +1,40 @@
+SINTÁXIS DE LAS PRINCIPALES INSTRUCCIONES EN XSL
+
+
+ESTRUCTURA DEL FICHERO
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match = "/">
+
+		Instrucciones.......
+
+</xsl:template>
+</xsl:stylesheet>
+
+
+IF
+<xsl:if test = “Condición” / expr = “Condición”> 
+	Instrucciones
+</xsl:if>
+
+
+FOR
+<xsl:template match = "/">
+
+<xsl:for-each select = “Nodo” atributos>
+	<xsl:value-of select = “Elemento”> 
+<xsl:for each>
+
+
+CHOOSE
+<xsl:choose> 
+	<xsl:when test = “Condicion” / expr = “Condición”>
+		Instrucciones
+	</xsl:when>
+	<xsl:when test = “Condición” / expr= “Condición”>
+		Instrucciones
+	</xsl:when>
+	<xsl:otherwise>
+		Instrucciones
+	</xsl:otherwise>
+</xsl:choose>

@@ -1,0 +1,303 @@
+set serveroutput on
+DECLARE												declaracion de variables
+comentarios -> con --esto es un comentarios
+num INT:=0;
+mensaje varchar(20):='HOLA';
+nombre varchar(20):='&damenombre';				esto muestra por pantalla una ventana emergente, no se puede poner espacios
+edad int:=&dame_edad;								igual al anterior muestra el mensaje pero se pone sin comillas simples
+
+BEGIN										codigo de programa
+dbms_output.put_line(mensaje||nombre);						esto muestra por pantalla los datos, pero debe esta el set serveroutput arriba
+END;
+
+
+NOTA: antes del END se puede poner el EXCEPTION para manejar las excepciones
+
+
+--------------------------------------------------------------------------------------------------------------------------
+set serveroutput on
+begin
+  dbms_output.put_line('HOLA!');
+end;
+---------------------------------------------------------------------------------------------------------------------------
+IF condicion THEN							IF condiciones1 THEN								IF condicion THEN
+	sentencias;									sentencias;											sentencias;
+END IF;										ELSE												ELSEIF condicional2 THEN
+IF condicion THEN								IF condicion2 THEN									sentencias;
+	sentencias;										sentencias;									ELSE
+ELSE											ELSE												sentencias;
+	sentencias;										sentencias;									END IF;
+END IF;											END IF;
+											END IF;
+----------------------------------------------------------------------------------------------------------------------------
+PARA DECLARAR ALGO DE UN TIPO:
+			DATOS_FILA COUNTRIES%ROWTYPE;									TOMA TODOS LOS CAMPOS DE UNA FILA;
+			NOMBRE EMP.NOMBRE%TYPE;											NOMBRETABLA.NOMBREFILA%TYPE;
+----------------------------------------------------------------------------------------------------------------------------
+CASE dia
+	WHEN 1 THEN dbms_output.put_line('Lunes');
+	WHEN 2 THEN dbms_output.put_line('martes');
+	WHEN dia>=1 AND dia<=5 THEN dbms_output.put_line('dia_de_trabajo');
+	ELSE dbms_output.put_line('Error');
+END CASE;
+--------------------------------------------------------------------------------------------------------------------------
+WHILE condicion	
+LOOP
+	sentencias
+END LOOP;
+-------------------------------------------------------------------------------------------------------------------------
+CONT:=1;											FOR VAR IN 1 .. 10 LOOP
+WHILE CONT<=10											dbms_output.put_line(VAR);
+	LOOP											END LOOP;
+	dbms_output.put_line(CONT);
+	CONT:=CONT+1;
+END LOOP;
+-------------------------------------------------------------------------------------------------------------------------
+FOR var IN [reverse] valorInicial.. valorFinal LOOP
+	sentencias
+END LOOP;
+------------------------------------------------------------------------------------------------------------
+if mod (num,2)=0 then
+	dbms('es par');
+-----------------------------------------------------------------------------------------------------------
+IF				IF
+ELSIF				ELSE
+   ELSE				    IF
+END if;				    ELSE
+				    END IF;
+				END IF;
+-------------------------------------------------------------------------------------------------------------------
+en los procedure no hay returns se debe poner todo con dbms para mostrar mensajes
+CREATE OR REPLACE PROCEDURE nombreProc
+  (param1 [IN|OUT|INOUT] tipo ...]
+IS //declaracion de variables
+BEGIN //sentencias cuerpo
+[exception]
+END;
+-------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION (//lista de paramentros)						//solo se pone varchar2 no el tamano
+RETURN tipoDeDatos
+IS
+  //declarar us
+BEGIN
+  //sentencias
+RETURN dato;
+END;
+------------------------------------------------------------------------------------------------------------------------
+Cursores de tipo update
+
+CURSOR C1 IS SELECT emp_no, nombre, oficio, salario from EMPLE FOR UPDATE;
+TYPE registro IS RECORD(emp emple.emp_no%type, nom emple.nombre%type, ofic emple.oficio%type, sol emple.salario%type);
+var registro;
+inc double:=1;
+
+--ahora un buble de lectura y actualizacion de cursor con la busqeda deseada
+BEGIN
+  OPEN C1;
+  FETCH C1 INTO VAR;
+  WHILE C1%FOUND LOOP
+  dbms(var.emp || var.nom || var.ofic || var.sal);
+  --aqui se hace el update, la parte de where es importatnte, realmente se deberia hacer un if y buscar si cumple la condicion y luego si leer en el cursor.
+  UPDATE emple set salario=var.sal*1.1 WHERE CURRENT OF C1;
+  FETCH C1 INTO VAR;
+  END LOOP;
+  dbms('se han procesado' || c1%rowcount || 'registros');
+  --cerramos el cursor
+  CLOSE C1;
+END;
+
+-- sin son 2 tablas el update se debe poner EMPLE FOR UPDATE OF <nombreCampo>
+
+----------------------------------------------------------------------------------------------------------------------
+Ejericio 7 Cursores sin falta.pdf
+
+Create or replace paumentasal(DEP emple.det_no%type)
+IS
+
+
+CURSOR C1 IS select emp_no, nombre, oficio, salario from emple where dept_no = DEP for update;
+-- de aqui igual que arriba --
+t
+Begin
+  OPEN c1
+  -- igual hasta dbms --
+  case var.ofic
+  WHEN 'analista' THEN inc:=1.005;
+  WHEN 'vendedor' THEN inc:=1.003;
+  WHEN 'director' THEN inc:=1.01;
+  ELSE inc:=1.02;
+  END CASE;
+  UPDATE emple set salario = salario*inc 
+  WHERE CURRENT OF C1;
+  FETCH c1 INTO VAR;
+  -- igual hasta el final --
+
+------------------------------------------------------------------------------------------------------------------------------------
+TRiggers
+
+-una vista que no sea modificable se puede cambiar con u trigger de sustitucion
+-- trigger por statement se dispara por sentencia, por lo que se ejecutria solo una vez [for statement] va por defecto, para que se dispare todas las veces que ocurra
+-- se debera poner [for each row]
+-- variable tipo rowtype (registro) que recogen todos los valores de la tabla que se actualizan 	:old,:new
+-- control errores con triggers llamando a RAISE_APPLICATION_ERROR(codigo,mensaje)  codigo entre ((-20000 Y -20999)
+-- no commit or rollback
+--no dbl
+--si hay erroe en trigger la sentencia que la dispara no se ejecuta, por ejemplo si un delete la dispara pero falla el delete no se hace.
+-- cuando se usa FOR EACH ROW con WHEN ( old.salario < 1000 )		//no se necesita los 2 puntos
+-- triggers normales default: for statement(solo 1 vez) triggers sustitucion por default: for each row(tantas veces como se ejecutan en el bucle).
+
+Ejemplo:
+Create or replace trigger nombreT
+ {<before | after>}
+ {<delete | insert | update[of col1,col2...]}
+ [or delete ....]
+  on tabla
+ [for statement | for each row [(when condicion)]]
+ DECLARE
+  --us locales
+ BEGIN
+  --Bloque de codigo
+ EXCEPTION
+  --bloque de menjadores de EXCEPTION
+
+Ejemplo: pag 37 .trigger que salte cada vez que se produzca una actualizacion en la tabla emple y uestre un msj. ESTO DEBERIA ENVIAR MSJ A LA TABLA DE MSJ CREADA ANTERIORMENTE
+CADA VEZ QUE SE REALIZE UN CAMBIO
+CREATE OR REPLACE TRIGGER Actualiza_algo
+BEFORE
+  --tipos de acciones que espera trigger
+  DELETE OR INSERT OR UPDATE
+  ON EMPLE
+  FOR EACH ROW
+DECLARE
+  --para mostrar mensaje.
+  VAR VARCHAR2(200):=SYSDATE;
+BEGIN
+ --aqui vemos cada caso por separado 
+  IF DELETING THEN
+    VAR:=VAR || ' se ha eliminado el empleado ' || :old.nombre;
+  ELSEIF INSERTING THEN
+    VAR:=VAR || ' alta del empleado ' || :new.emp_no;
+  -- en el updating si que tenemos old y new
+  ELSEIF UPDATING THEN
+    VAR:=VAR || ' se actualiza el salario del emple ' || :old.emp_no || ' nuevo salario: ' || :new.salario;
+  --EXCEPTION CON VALORES ENTRE RANGOS (-20000 Y -20999) PARA CREAR Y LANZAR UNA EXCEPTION EN UNA LINEA.
+  ELSE
+    RAISE_APPLICATION_ERROR(-2007, ' ERROR EN TRIGGER ');
+  dbms(var);
+  --levar mensaje a la tabla de mensajes crear antes
+  INSERT INTO TABLA_NEW_EMPLE
+    VMENSAJES(VAR);
+  END;
+
+
+DISPARADORES DE SUSTITUCION (VISTAS)
+--no hace falta podner nada ya que siepre son FOR EACH ROW
+
+Create or replace trigger nombreT
+ INSTEAD OF
+ -- lo mismo que arriba
+ ON VISTA
+ -- no lo de for each row y lo demas igual
+
+---------------------------------------------------------------------------------------------------------------------------
+EJEMPLO CLASE:
+
+create or replace trigger tactualiza_emple BEFORE DELETE OR INSERT OR UPDATE ON
+emple
+FOR EACH ROW
+
+declare
+BEGIN
+IF INSERTING THEN
+DBMS_OUTPUT.PUT_LINE('Incidencia, nuevo empleado ' || :new.emp_no);
+END IF;
+IF DELETING THEN
+DBMS_OUTPUT.PUT_LINE('Incidencia, borrado de empleado ' || :old.nombre);
+END IF;
+IF UPDATING THEN
+DBMS_OUTPUT.PUT_LINE('Incidencia, actualizado de empleado ' || :old.nombre || ' nuevo salario ' || :new.salario);
+END IF;
+END;
+
+
+
+
+set serveroutput on;
+
+insert into emple(emp_no,nombre,dept_no,oficio,salario) values(88,'ANA',10,'profe',1000);
+select * from emple;
+delete from emple where emp_no=88;
+update emple set salario=9999 where emp_no=7369; 
+
+rollback;
+
+create table TABLA_MENS_EMPLE (var varchar2(200));
+
+
+
+
+
+
+create or replace trigger tactualiza_emple BEFORE DELETE OR INSERT OR UPDATE ON
+emple
+FOR EACH ROW
+
+
+declare
+var varchar2(200):=SYSDATE;
+BEGIN
+IF INSERTING THEN
+DBMS_OUTPUT.PUT_LINE('Incidencia, nuevo empleado ' || :new.emp_no);
+var:=VAR || 'Incidencia, nuevo empleado ' || :new.emp_no ;
+END IF;
+IF DELETING THEN
+DBMS_OUTPUT.PUT_LINE('Incidencia, borrado de empleado ' || :old.nombre);
+var:=VAR || 'Incidencia, borrado de empleado ' || :old.nombre ;
+END IF;
+IF UPDATING THEN
+DBMS_OUTPUT.PUT_LINE('Incidencia, actualizado de empleado ' || :old.nombre || ' nuevo salario ' || :new.salario);
+var:=VAR || 'Incidencia, actualizado de empleado ' || :old.nombre || ' nuevo salario ' || :new.salario ;
+END IF;
+INSERT INTO TABLA_MENS_EMPLE VALUES (VAR);
+END;
+--------------------------------------------------------------------------------------------------------
+
+		EJERCICIO 14
+
+create or replace procedure INSERADEP (nombre depart.dnombre%type, numcen depart.numce%type)
+IS
+nuevodep depart.dept_no%type;
+numdep depart.dept_no%type;
+
+n int;
+begin
+select count(*) into n from depart where dnombre=nombre;
+if n=0 then
+--no existe ese nombre de departamento
+--select dept_no into numdep from depart order by 1 desc limit 1;
+select max(dept_no) into numdep from depart;
+nuevodep:=numdep+10;
+insert into depart (dept_no,dnombre,numce) values (nuevodep, nombre, numcen);
+if sql%rowcount = 1 then 
+  dbms('se inserta el depto: '|| nuevodep);
+else
+  dbms('Error al insertar el depto: '|| nuevodep);
+end if;
+else
+  dbms('El departamento: '||nombre||' ya existe');
+end if;
+end;
+
+
+
+set serveroutput on;
+declare
+nombre depart.dnombre%type;
+num depart.numce%type;
+begin
+nombre:='&nombre_departamento';
+num:=&numcentro;
+insertadep(nombre,num);
+end;
+
+------------------------------------------------------------------------------------------

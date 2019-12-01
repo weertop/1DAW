@@ -1,0 +1,9 @@
+1.-	//cuenta[@tipo='PENSIONES' and aportacion > 20000]
+
+2.-	//sucursal[count(cuenta[@tipo='AHORRO']) > 3]/concat(@codigo," ",@telefono)
+
+3.-	//sucursal[count(cuenta) > 3]/concat(@codigo," ",director," ",sum(cuenta/saldohaber))
+
+4.-	//sucursal[cuenta]/concat(@codigo," ",sum(cuenta[@tipo='PENSIONES']/aportacion))
+
+5.-	//sucursal[count(cuenta[@tipo='PENSIONES']) = 2]/concat(@codigo," ")

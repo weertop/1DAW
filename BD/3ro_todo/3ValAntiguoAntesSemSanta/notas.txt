@@ -1,0 +1,58 @@
+set serveroutput on
+DECLARE												declaracion de variables
+comentarios -> con --esto es un comentarios
+num INT:=0;
+mensaje varchar(20):='HOLA';
+nombre varchar(20):='&damenombre';				esto muestra por pantalla una ventana emergente, no se puede poner espacios
+edad int:=&dame_edad;								igual al anterior muestra el mensaje pero se pone sin comillas simples
+
+BEGIN											codigo de programa
+dbms_output.put_line(mensaje||nombre);			esto muestra por pantalla los datos, pero debe esta el set serveroutput arriba
+END;
+
+
+NOTA: antes del END se puede poner el EXCEPTION para manejar las excepciones
+
+
+--------------------------------------------------------------------------------------------------------------------------
+set serveroutput on
+begin
+  dbms_output.put_line('HOLA!');
+end;
+---------------------------------------------------------------------------------------------------------------------------
+IF condicion THEN							IF condiciones1 THEN								IF condicion THEN
+	sentencias;									sentencias;											sentencias;
+END IF;										ELSE												ELSEIF condicional2 THEN
+IF condicion THEN								IF condicion2 THEN									sentencias;
+	sentencias;										sentencias;									ELSE
+ELSE											ELSE												sentencias;
+	sentencias;										sentencias;									END IF;
+END IF;											END IF;
+											END IF;
+----------------------------------------------------------------------------------------------------------------------------
+PARA DECLARAR ALGO DE UN TIPO:
+			DATOS_FILA COUNTRIES%ROWTYPE;									TOMA TODOS LOS CAMPOS DE UNA FILA;
+			NOMBRE EMP.NOMBRE%TYPE;											NOMBRETABLA.NOMBREFILA%TYPE;
+----------------------------------------------------------------------------------------------------------------------------
+CASE dia
+	WHEN 1 THEN dbms_output.put_line('Lunes');
+	WHEN 2 THEN dbms_output.put_line('martes');
+	WHEN dia>=1 AND dia<=5 THEN dbms_output.put_line('dia_de_trabajo');
+	ELSE dbms_output.put_line('Error');
+END CASE;
+--------------------------------------------------------------------------------------------------------------------------
+WHILE condicion	
+LOOP
+	sentencias
+END LOOP;
+-------------------------------------------------------------------------------------------------------------------------
+CONT:=1;											FOR VAR IN 1 .. 10 LOOP
+WHILE CONT<=10											dbms_output.put_line(VAR);
+	LOOP											END LOOP;
+	dbms_output.put_line(CONT);
+	CONT:=CONT+1;
+END LOOP;
+-------------------------------------------------------------------------------------------------------------------------
+FOR var IN [reverse] valorInicial.. valorFinal LOOP
+	sentencias
+END LOOP;

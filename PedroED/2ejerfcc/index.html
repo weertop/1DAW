@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+<body>
+    <div class="main">
+        <h1 id="title">Survey Form</h1>
+        <p id="description">Fullfill the form to answer you!</p>
+        <form action="" id="survey-form">
+            <fieldset>
+                <legend>It's easy!</legend>
+                <div class="rowF">
+                    <label for="namef" id="name-label">Name:</label>  
+                </div>
+                <div class="contentR">
+                        <input type="text" name="namef" id="name" placeholder="Enter name" autofocus required>
+                </div>
+                <div class="rowF">
+                    <label for="emailf" id="email-label">E-mail:</label>
+                </div>
+                <div class="contentR">
+                        <input type="email" name="emailf" id="email" placeholder="Enter email" required>
+                </div>
+                <div class="rowF">
+                    <label for="versionf" id="number-label">Number of Version:</label>
+                </div>
+                <div class="contentR">
+                        <input type="number" name="versionf" min="0" max="6" id="number" placeholder="Enter number between 0-6">
+                </div>
+                <div class="rowF">
+                    <label for="dropdawnf" id="dropdawn-label">Select:</label>
+                </div>
+                <div class="contentR">
+                        <select name="dropdawn" id="dropdown">
+                            <option value="question">Question</option>
+                            <option value="problem">Problem</option>
+                            <option value="bug">Report a Bug</option>
+                            <option value="assistance">Persional assistance</option>
+                        </select>
+                </div>
+                <div class="rowF">
+                    <label for="radiobf" id="radio-label">Select an option to recibe adds: </label>
+                </div>
+                <div class="contentR">
+                        <input type="radio" name="adds" value="yes" id="radio-add">Yes<br/>
+                        <input type="radio" name="adds" value="no" id="radio-add">No<br/>
+                        <input type="radio" name="adds" value="maybe" id="radio-add">Maybe<br/>
+                </div>
+                <div class="rowF">
+                    <label for="checkf" id="check-label">Select an option to share your personal information: </label>
+                </div>
+                <div class="contentR">
+                        <input type="checkbox" name="adds" value="Google" id="check-add">Google<br/>
+                        <input type="checkbox" name="adds" value="Microsoft" id="check-add">Microsoft<br/>
+                        <input type="checkbox" name="adds" value="Facebook" id="check-add">Facebook<br/>
+                        <input type="checkbox" name="adds" value="all" id="check-add">to All<br/>
+                        <input type="checkbox" name="adds" value="any" id="check-add" checked>to Any (logical)<br/>
+                </div>
+                <div class="rowF">
+                    <label for="textarea" id="textarea-label">Describe: </label>
+                </div>
+                <div class="contentR">
+                        <textarea name="textarea" id="text-area" cols="30" rows="10" placeholder="write here"></textarea>
+                </div>
+                <div class="rowF">
+                    <label for="submitf" id="submit-label"></label>   
+                </div>
+                <div class="contentR">
+                        <input type="submit" value="Submit" id="submit">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+
+Imprimir DTDschema de la 6-14
+Mixed true
+poner <nombre xlmns:xs="........."
+		xs:Nonamespace=......
+
+<personas xmlns:xsi="
+
+	<persona dni="1111">
+		<nombre> Ana </nombre>
+		<apellidos> Lopez </apellidos>
+	</persona>
+	<persona dni="23323">
+		<nombre>pepe</nombre>
+		<apellidos>perez</apellidos>
+	</persona>
+	<alumno> dni="3333">
+		<nombre>juan</nombre>
+		<apellidos>gonza</apellidos>
+		<telefono>4242</telefono>
+		<direccion tipo="avda">dasdasdasd</direccion>
+	</alumno>
+	<profesor dni="4444">
+		<nombre>marcos</nombre>
+		<nombre>juan</nombre>
+		<apellidos>gonza</apellidos>
+		<telefono>4242</telefono>
+		<direccion tipo="avda">dasdasdasd</direccion>
+		<centro>ies paloma</centro>
+	</profesor>
+</personas>
+		

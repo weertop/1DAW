@@ -1,0 +1,407 @@
+﻿/*LEER UN NUMERO POR TECLADO Y VISUALIZAR*/
+set serveroutput on
+declare
+  numero int:=&dame_un_numero;
+  cont int:=0;
+  resul int:=0;
+begin
+  while cont<=10
+  loop
+    resul:=numero*cont;
+    dbms_output.put_line(numero||'*'||cont||'='||resul);
+    cont:=cont+1;
+  end loop;
+end;
+
+---------------------------------------------------------------------------------
+/*HACER UN PROGRAMA QUE CALCULE EL AREA DE UN CIRCULO LEYENDO DESDE TECLADO EL RADIO Y DECLARADO UNA CTE CON PI*/
+set serveroutput on
+declare
+  PI CONSTANT NUMBER (7,6):=3.141592;
+  radio int:=&dame_el_radio;
+  area int:=0;
+  mensaje varchar2(30):='tu_area_es:';
+begin
+  area:=PI*(radio*radio);
+  dbms_output.put_line(mensaje||area);
+end;
+
+----------------------------------------------------------------------------------
+/*1.- Codificar un bloque anónimo que visualice las tablas de multiplicar del 1 al número leído por teclado.
+Por ejemplo:
+DameNumero: 4
+TABLA DEL 1
+1X1=1*/
+set serveroutput on
+declare
+  numero int:=&dame_un_numero;
+  cont2 int:=0;
+  cont int:=0;
+  resul int:=0;
+begin
+  for cont in 1 .. numero loop
+  dbms_output.put_line('tabla del ' || cont);
+    while cont2<=10
+      loop
+        resul:=cont*cont2;
+        dbms_output.put_line(cont||'*'||cont2||'='||resul);
+        cont2:=cont2+1;
+      end loop;
+      cont2:=0;
+    end loop;
+end;
+
+-----------------------------------------------------------------------------------
+/*2.- Visualizar la serie de  números empezando por 1 hasta el  número leído por teclado y visualizar su media.
+Por ejemplo:
+DameNumero: 4
+1 2 3 4 
+La media es 2,5*/
+set serveroutput on
+declare
+  numero int:=&dame_un_numero;
+  cont int:=0;
+  suma int:=0;
+  resul number(5,2):=0.0;
+begin
+  for cont in 1 .. numero loop
+    dbms_output.put(cont|| ' ');
+    suma:=suma+cont;
+  end loop;
+  resul:=suma/numero;
+  dbms_output.put_line(' ');
+  dbms_output.put_line('suma: ' || suma || ' resultado: '||resul);
+end;
+
+--------------------------------------------------------------------------------------------------
+/*3.- Visualizar la serie de  números pares empezando por 2 hasta el  número leído por teclado y visualizar su media.
+Por ejemplo:
+DameNumero: 9
+2 4 6 8
+La media es 5*/
+set serveroutput on
+declare
+  numero int:=&dame_un_numero;
+  cont int:=0;
+  suma int:=0;
+  resul number(5,2):=0.0;
+begin
+  for cont in 1 .. numero loop
+    if mod (cont,2)=0 then
+      dbms_output.put(cont|| ' ');
+      suma:=suma+cont;
+    end if;
+  end loop;
+  resul:=suma/numero;
+  dbms_output.put_line(' ');
+  dbms_output.put_line('suma: ' || suma || ' resultado: '||resul);
+end;
+
+/*ojo en estos ejericios con el dividir para la media se debe hacer con una variable dentro del bucle que cuente*/
+----------------------------------------------------------------------------------------------------
+/*4.- Visualizar la serie de  números impares empezando por 1 hasta el  número leído por teclado y visualizar su media.
+Por ejemplo:
+DameNumero: 10
+1 3 5 7 9
+La media es 5*/
+set serveroutput on
+declare
+  numero int:=&dame_un_numero;
+  cont int:=0;
+  suma int:=0;
+  resul number(5,2):=0.0;
+begin
+  for cont in 1 .. numero loop
+    if mod (cont,2)!=0 then
+      dbms_output.put(cont|| ' ');
+      suma:=suma+cont;
+    end if;
+  end loop;
+  resul:=suma/numero;
+  dbms_output.put_line(' ');
+  dbms_output.put_line('suma: ' || suma || ' resultado: '||resul);
+end;
+
+/*ojo en estos ejericios con el dividir para la media se debe hacer con una variable dentro del bucle que cuente*/
+-------------------------------------------------------------------------------------------------------
+/*5.- Se leerá un número y un carácter:
+DameNumero: 4
+DameCarácter: #
+Y se visualizará la siguiente figura:
+####
+####
+####
+####
+*/
+set serveroutput on
+declare
+  numero int:=&dame_un_numero;
+  caracter char:='&dame_caracter';
+  cont int:=0;
+begin
+  dbms_output.put_line(' ');
+  for cont in 0 .. numero loop
+    for cont2 in 0 .. numero loop
+      dbms_output.put(caracter);
+    end loop;
+     dbms_output.put_line(' ');
+  end loop;
+end;
+
+--------------------------------------------------------------------------------------------------------
+/*6.-  Se leerá un número y un carácter:
+DameNumero: 4
+DameCarácter: #
+Y se visualizará la siguiente figura:
+####
+###
+##
+#*/
+
+set serveroutput on
+declare
+  numero int:=&dame_un_numero;
+  caracter char:='&dame_caracter';
+  cont int:=numero;
+begin
+  dbms_output.put_line(' ');
+  for cont in reverse 0 .. numero loop
+    for cont2 in reverse 0 .. cont loop
+      dbms_output.put(caracter);
+    end loop;
+     dbms_output.put_line(' ');
+  end loop;
+end;
+--------------------------------------------------------------------------------------------------------
+/*7.- Se leerá un número y un carácter:
+DameNumero: 4
+DameCarácter: #
+Y se visualizará la siguiente figura:
+#
+##
+###
+####*/
+set serveroutput on
+declare
+  numero int:=&dame_un_numero;
+  caracter char:='&dame_caracter';
+  cont int:=0;
+begin
+  dbms_output.put_line(' ');
+  for cont in 0 .. numero loop
+    for cont2 in 0 .. cont loop
+      dbms_output.put(caracter);
+    end loop;
+     dbms_output.put_line(' ');
+  end loop;
+end;
+
+-----------------------------------------------------------------------------------------------------------
+/*8.- Se leerá un número:
+DameNumero: 6
+Y se visualizará la siguiente figura:
+1
+21
+123
+4321
+12345
+654321
+*/
+set serveroutput on
+declare
+  numero int:=&dame_un_numero;
+  cont int:=0;
+begin
+  dbms_output.put_line(' ');
+  for cont in 1 .. numero loop
+    if mod (cont,2)!=0 then
+      for cont2 in reverse 1 .. cont loop
+        dbms_output.put(cont2);
+      end loop;
+    end if;
+    if mod (cont,2)=0 then
+      for cont2 in 1 .. cont loop
+        dbms_output.put(cont2);
+      end loop;
+    end if;
+     dbms_output.put_line(' ');
+  end loop;
+end;
+-----------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+					FUNCION
+-------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+create or replace FUNCTION ObtenerId(nomemple emple.nombre%TYPE) RETURN number
+IS
+idemple number;
+BEGIN
+SELECT emp_no into idemple from emple where nombre = nomemple;
+--SELECT emp_no into idemple from emple where nombre like '%'||nomemple||'%';
+RETURN idemple;
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN 
+  RETURN -1;
+END;
+-----------------------------------------------------------------------
+USO:
+set serveroutput on
+declare
+nombre_emple emple.nombre%type:='&dame_nombre';
+ret number;
+begin
+ret:=ObtenerId(nombre_emple);
+if ret !=-1 then
+  dbms_output.put_line('El id del empleado '||nombre_emple||' es '||ret);
+else
+  dbms_output.put_line('Error usuario '||nombre_emple|| ' no encontrado');
+end if;
+end;
+-----------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+					PROCEDIEMIENTO
+-------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+create or replace PROCEDURE ObtenerIdProc(nomemple emple.nombre%TYPE)
+IS
+idemple number;
+BEGIN
+SELECT emp_no into idemple from emple where nombre = nomemple;
+dbms_output.put_line('el emple '||nomemple|| ' tiene de id: ' || idemple);
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN 
+  dbms_output.put_line('EL EMPLEADO NO EXISTE ' || idemple);
+END;
+-----------------------------------------------------------------------
+USO:
+set serveroutput on
+declare
+nombre_emple emple.nombre%type:='&dame_nombre';
+ret number;
+begin
+ ObtenerIdProc(nombre_emple);
+end;
+--------------------------------------------------------------------------------------------------------
+3.primo
+create or replace FUNCTION EsPrimo(numero int) RETURN boolean
+IS
+numPrimo boolean;
+cont2 int:=0;
+BEGIN
+  for cont in 1 .. numero loop
+    if mod (numero,cont)=0 then
+      cont2:=cont2+1;
+    end if;
+  end loop;
+  if cont2>2 then
+    numPrimo:=false;
+  end if;
+RETURN numPrimo;
+END;
+
+------------------------
+set serveroutput on
+declare
+num int:=&dame_numero;
+ret boolean;
+begin
+ret:=EsPrimo(num);
+if ret=false then
+  dbms_output.put_line('El numero: '||num||' no es primo ');
+else
+   dbms_output.put_line('El numero: '||num||' si es primo ');
+end if;
+end;
+
+-----------------------------------------------------------------------------------
+ejercicio crear mi propia exception
+
+declare
+	noNegativos Exception;
+	num int;
+begin
+	num:=&damenumero;
+	if num < 0 then
+		raise noNegativos;
+	end if;
+	dbms('El numero no es negativo');
+exception
+	when noNegativos then
+		dbms('no puede ser negativo!');
+end;
+
+------------------------------------------------------------------------------------
+ejercicio de los dias numero 10._
+case
+  when dia >= 1 and dia <=5 then
+     dbms('dia de la semana');
+  when dia = 6 and dia = 7 then
+     dbms('fin de semana');
+  else
+    dbms('error ese dia no existe');
+end case;
+exception
+when case_not_found then
+  cad:='Error';
+  dbms('cad');
+end;
+
+--si se introduce un numero que no este en el case y no existe nos saldria la exception
+--case not found.
+
+-------------------------------------------------------------------------------------------
+11. ejericicio numero primo
+otra forma es hacerlo con una funcion dividiendo mod entre el 2 y n-1, y si encuentras cuaquier mod!=0 ya sales de
+la funcion
+---------------------------------------------------------------------------------------------
+17. para controlar la exception de no data found sin exception debemos hacer un count ya que estos
+no generan exception
+por el contrario los select normales con un where que devuelvan valores producen exceptions.
+otra forma es viendo el las filas que cambian al hacer un select con: sql%rowcount
+	dmbs_output.put_line('se han modificado' || sql%rowcount || ' registros');
+esto nos devolvera un mensaje ( se han modificado 1 registro);
+----------------------------------------------------------------------------------------------
+crear estructuras en oracle sql:
+
+TYPE tipodato IS RECORD
+(nomb emple.nombre%type;
+ sal emple.salario%type);
+
+var tipodato;
+
+begin
+  select nombre,salario into var from emple where emp_no = 7537;
+  dbms(var.nomb || var.sal);
+
+------------------------------------------------------------------------------------------
+
+ejericicio 5 no cursores.-
+
+--forzar exception 
+create or replace procedure pverempleoficio (empleOficio emple.oficio%type)
+IS
+conta int;
+empleado emple%rowtype;
+begin
+  select * into empleado from emple where oficio = empleOficio;		--esto fuerza la exception
+  select count(*) into conta from emple where oficio=empleOficio;
+  dbms_output.put_line('Existen ' || conta || ' Empleados' );
+  exception
+    when no_data_found then 
+      dbms_output.put_line('usuario no exitente');
+    when too_many_rows then
+      dbms_output.put_line('mas de un usuario');
+end;
+
+
+set serveroutput on
+declare
+  oficioEmple emple.oficio%type:='&Dime_oficio';
+begin
+  pverempleoficio(oficioEmple);
+end;
+
+--select * from emple;
+--rollback;
+
+----------------------------------------------------------------------------------------

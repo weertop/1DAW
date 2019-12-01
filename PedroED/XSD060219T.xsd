@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:complexType name="tipoespecie">
+	<xs:sequence>
+		<xs:element name="animales" type="tipoanimales"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tipoanimales">
+	<xs:sequence>
+		<xs:element name="mamiferos" type="tipomamifero"/>
+		<xs:element name="aves" type="tipoaves"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tipomamifero">
+	<xs:sequence>
+		<xs:element name="animal" type="tipoanimal"  minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tipoanimal">
+	<xs:sequence>
+		<xs:element name="nombre_cientifico" type="xs:string"/>
+		<xs:element name="nombre_vulgar" type="xs:string"/>
+		<xs:element name="zona_geografica" type="xs:string"/>
+	</xs:sequence>
+	<xs:attribute name="habitat" type="tipo_habitat"></xs:attribute>
+</xs:complexType>
+
+<xs:simpleType name="tipo_habitat">
+	<xs:restriction base="xs:string">
+		<xs:enumeration value="tierra"></xs:enumeration>
+		<xs:enumeration value="mar"></xs:enumeration>
+	</xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="tipoaves">
+	<xs:sequence>
+		<xs:element name="ave" type="tipoave" minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tipoave">
+	<xs:complexContent>
+		<xs:extension base="tipoanimal">
+			<xs:sequence>
+				<xs:element name="velocidad_vuelo" type="tipo_velocidad_vuelo"/>
+			</xs:sequence>
+		</xs:extension>
+	</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="tipo_velocidad_vuelo" mixed="true">	
+	<xs:attribute name="distancia_maxima" type="xs:string"></xs:attribute>
+</xs:complexType>
+
+<xs:element name="especies" type="tipoespecie"/>
+
+</xs:schema>

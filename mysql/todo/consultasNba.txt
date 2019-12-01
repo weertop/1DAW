@@ -1,0 +1,36 @@
+select ciudad, nombre from equipos where conferencia like '%east%' order by 1,2 asc limit 5;
+
+select ciudad, nombre from equipos where conferencia like '%east%' order by 1,2 asc limit 1,2;
+
+select ciudad, nombre from equipos where conferencia like '%east%' order by 2 desc;
+
+select conferencia from equipos;
+
+select distinct conferencia from equipos;
+
+select count(*) numJugadores from jugadores where procedencia = 'spain';
+
+select avg(peso) "peso medio, min(peso) minimo, max(peso), sum(peso) suma, count (codigo) numJugadores from jugadores;
+
+select count(*) from jugadores;
+
+select count(nombre_equipo) from jugadores;
+
+select count(distinct nombre_equipo) from jugadores;
+
+/*ojo que se debe poner IS NULL no = NULL*/
+select * from jugadores where nombre_equipo IS NULL;
+
+select avg(peso) from jugadores where procedencia = 'spain' group by procedencia;
+
+/*having = where pero despues*/
+select avg(peso) from jugadores group by procedencia having procedencia = 'spain';
+
+ select nombre_equipo, avg(peso) from jugadores group by nombre_equipo;
+
+select procedencia, avg(peso) from jugadores group by procedencia;
+
+ select procedencia, nombre_equipo, avg(peso) from jugadores group by procedencia, nombre_equipo;
+
+
+

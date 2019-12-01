@@ -1,0 +1,36 @@
+alter table publisher add ejemplares_vendidos number(38);
+
+update publisher set ejemplares_vendidos=(select sum(ytd_sale)
+                                                                                    from title
+                                                                                    where pub_id=publisher.pub_id)
+
+create or replace trigger t1 after insert or update or delete on title
+for each row
+declare
+
+begin
+
+ if inserting then
+    update publisher 
+    set ejemplares_vendidos=ejemplares_vendidos+:new.ytd_sale
+    where pub_id= :new.pub_id;
+ else 
+ if deleting then
+    update publisher 
+    set ejemplares_vendidos=ejemplares_vendidos - :old.ytd_sale
+    where pub_id= :old.pub_id;
+ else 
+    update publisher 
+    set ejemplares_vendidos=ejemplares_vendidos +:new.ytd_sale - :old.ytd_sale
+    where pub_id= :new.pub_id;
+end if;
+end if;
+end;
+
+3.
+alter table title add last_update date;
+update title set last_update=sysdate - 1;
+create or replace trigger t2 before update on title for each row
+begin
+:new.last_update=sysdate;
+end;

@@ -1,0 +1,36 @@
+body{
+    background-color: antiquewhite;
+    line-height: 33px;
+    text-align: center;
+    min-width: 300px;
+}
+
+.main{
+    //text-align: left;
+}
+
+#survey-form{
+    
+    margin: 0 auto;
+    
+    border-radius: 10px;
+    width: 65%;
+    
+}
+
+.rowF{
+    display: block;
+    text-align: right;
+    margin-right:52%;
+
+    width: 40%;
+float:left;
+}
+.contentR{
+    display: block;
+    text-align: left;
+    margin-left: 52%; 
+
+    width: 48%;
+float:right;
+}

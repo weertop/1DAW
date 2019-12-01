@@ -1,0 +1,48 @@
+﻿JOIN:
+select p.dni,p.nombre,m.nombre from PROPIETARIOS p INNER JOIN MASCOTAS m ON p.dni=m.dni;
+													LEFT OUTER JOIN						// busca los iguales igual que antes pero ademas añiade los de propietarios que sean NULL
+													RIGHT OUTER JOIN					// igual que antes pero tomando los de la derecha MASCOTAS que tengan NULL
+													
+													
+Funciones aprenderlas:
+	Substring (cad, posicionInicio[longitud])
+	instr(cadena, caracter)
+	length(cadena)
+	concat (cad1,'	',cadena2)
+	round (numero, decimales)
+	
+
+Transacciones: todas las DDD, las DDl no permiten hacer el rollback
+	cambiar siempre la variable autocommit ON (cambiarla a OFF)
+	begin ( y luego sentencias)
+	rollback (elimina todos los cambios)
+	commit (guarda los cambios)
+	
+Usuarios:
+	CREATE USER pepe@localhost IDENTIFIED BY 'password';						// ESTE ENTRA COMO mysql -upepe -ppassword
+	GRANT allprivileges ON bdEmpleados.departamentos TO pepe@localhost;
+									*.*
+									
+	GRANT allprivileges ON bdEmpleados.* TO lolo IDENTIFIED BY 'lolopass' WITH GRANT OPTION;	//ENTRA COMO mysql -ulolo -plolopass -hoficina por no ser de localhost CREA USUARIO Y DA PERMISOS A LA VEZ, GRANT OPTION LE PERMITE CREAR MAS USUARIOS
+	GRANT priv ON objeto TO usuario[identified by 'pass']
+	REVOKE priv ON objeto FROM usuario;											// QUITA PERMISOS
+	
+Crear Tablas:
+	si en el nombre esta con un * significa que es optativo osea no sera NOT NULL
+	por defecto todo lo que no especifique sera NOT NULL
+
+	ON DELETE SET NULL ON UPDATE CASCADE;
+	
+	INSERT INTO Propietarios VALUES ('1111A','Pepe',NULL);
+	INSERT INTO Mascostas (idMascota, nombre) VALUES (null,'Laika');				//forma para rellenar solo los impresindibles los NOT NULL
+	UPDATE Propietarios SET idm=1 WHERE dni='11111A';
+	DELETE FROM mascotas WHERE idMascota IN (select idMascota FROM propietarios WHERE edad=(select max(edad) FROM Propietarios));		//ojo a este que recibe una subselect con varios valores
+
+	CREATE mascotas2 LIKE mascotas;								//esta y la de abajo crean una tabla y copian los valores
+	INSERT INTO mascotas2 SELECT * FROM mascotas;
+
+	CREATE mascotas3 SELECT * FROM mascotas;						//esta la crea y copia pero no te copia las PK, FK, y demas cosas
+
+NOTAS:
+	OJO no se puede hacer una subconsulta sobre una misma tabla y modificar esa tabla.
+	Si se usa select count(*),nombre ; osea algo mas despues del count,sum,etc se debe usar el group by.

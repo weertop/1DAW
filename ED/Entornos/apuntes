@@ -1,0 +1,41 @@
+
+APP MEETUP ----- GOOGLE CAMP
+
+Esto esta dentro de nuestro PC
+		add			commit
+working copy ----->   stagement area -------> repository
+(archivo)		(modificacion)		(subir)
+
+// elimina el ultimo add que se haya hecho 
+ git reset HEAD Alumno.java
+// recupera (baja) la ultima version en el repositorio
+ git checkout -- Alumno.java
+// lista de cambios
+ git log
+ git log --oneline --decorate
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
+git branch	//ver ramas el asterisco muestra en que rama estamos
+git branch rama1	//crear ramas		union de los 2 comandos: git branch -b rama1
+git checkout rama1	//entrar a rama
+// si se hace una rama de una rama no se podra hacer merge con el master
+git branch -m rama2	//renombra rama
+git branch -d rama1	//elimina rama
+
+git merge rama1		//debemos estas posicionados en la rama a la que queremos unir
+
+
+----------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
+git checkout n56n34k4	//codigo de --oneline para volver a versiones anteriores si queremos 				volver al master se pone git checkout master
+
+git tag v1 n56n34k4	//poner tag para no usar los numeros del oneline
+
+git remote add origin http:dropboxetc 	//subir a github origin se refiere al remoto
+
+git pull -rebase	//intenta bajarse de github sin modificar lo que tenemos en local
+
+

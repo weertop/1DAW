@@ -1,0 +1,164 @@
+-------------------------------------------------------------------------------------------------------
+comandos:
+	mysql -u root -p
+	mysql -u root -proot  //para que no vuelva a pedir contraseña -proot contraseña seria root
+				contraseña de nuestro root es "practicas"
+	mysql -h -u root - p  //el -h nos dice en que host queremos ejecutarlo si no se pone sera 					en local
+	show databases;		//muestra las bases de datos
+	use "nombre_data_base";	//accede a una de las bases de datos creadas
+	show tables;		//muestra las tablas de las bases de datos 
+
+	mysql -u root -p < prueba.sql	//abrir mysql y leer el pruebas.sql
+	mysql -u root -p < prueba.sql > prueba2.sql	//similar al anterior pero ahora la salida 								se envia a otro archivo que si eixste lo 								sobreescribe y sino lo crea.(tambien puede 								ser >>)
+
+	CREATE DATABASE IF NOT EXIST Prueba;	//crea base de datos si no existe, si existe lo 						ignora
+	CHARACTER SET latin1;	//juego de caracteres
+	COLLATE latin1_sw_ci;	//ci(case insesitive) orden del juego de caracteres
+	"espeficicar el motor de base datos"	
+		CREATE TABLE "nombre" (      ) engine = 'inodb';
+	
+	USE Prueba;		//conectarse a base de datos
+	CREATE TABLE IF NOT EXISTS Tabla1(id int NOT NULL )	//tabla1 con campos id (primero 								nombre luego tipo) se puede añadir 									especificaiones de NOT NULL, PK, 									etc.
+	CREATE TABLE IF NOT EXISTS Tabla1(id int NOT NULL PRIMARY KEY, nombre VARCHAR(20));
+	ALTER	//permite modificar tabla	
+
+	Tipos de variables:	Decimal(digitosTotales,digitosDecimales) //Decimal (6,2)
+				TINYINT
+				SMALLINT
+				MEDIUMINT
+				BIG INT
+				INT(4)
+				FLOAT
+				DOUBLE
+				DATE
+				TIME
+				TIMESTAMP
+				DATETIME
+				VARCHAR (char variable se ajusta al tamaño introducido)
+				CHAR (ocupa siempre el tamaño especificado)
+
+	CREATE TABLE  IF NOT EXIST Prueba.tabla1();	//otra forma de notacion(entrar a la tabla)
+	CONSTRAIT	//da nombres o pone etiquetas a cosas (PK, etc)
+	CHECK		//comprueba si el valor a introducir esta en los limities que se establecen
+	
+	insertar:
+		insert into "nombre_tabla" values (1,"textot",2018-03-12);
+
+	mostrar:
+		describe "nombre_tabla";
+		show create table "nombre_tabla";
+		select * from "nombre_tabla";
+	
+	lanzar un script sql:
+		source "nombre.sql";
+
+	Eliminar:
+		DROP DATABASE IF EXISTS "nombrebd";
+
+	Cambiar:
+		ALTER TABLE "nombretabla" ADD "nombredol" TIPO FIRST;
+		ALTER TABLE "nombretabla" DROP "nombrecol";
+		ALTER TABLE "nombretabla" MODIFY "nombrecol" TIPO;
+
+	"añadir una columna especificando el lugar en el que queremos que vaya"
+	ALTER TABLE departamentos ADD fecha_creacion DATE AFTER nombre;
+	"eliminar una columna especificada"
+	ALTER TABLE departamentos DROP fecha_creacion;
+
+	"modificar un campo, se puede cambiar el tamaño del entero variando el valor dentro del parentesis"
+	ALTER TABLE departamentos MODIFIY  nombre VARCHAR(40);
+
+	DESCRIBE:
+		DESCRIBE alumnos;       similar         DESCRIBE basedatos.alumnos;
+
+	CHANGE usa junto con alter para cambiar el nombre de una columna:
+		ALTER TABLE "nombreTabla" CHANGE "nombreActual "nuevoNombre" TIPO;
+	
+	UNIQUE:
+		ALTER TABLE "nombreT" ADD UNIQUE("columna");
+
+	FOREIGN KEY:
+		ALTER TABLE "nombreT" DROP FOREIGN KEY "constraintNombre";
+
+	Eliminiar :
+		DROP TABLE IF EXISTS "nombreT";
+
+	Renombrar Tabla:
+		RENAME TABLE "nombreAct" TO "nuevoNombre";
+
+	AUTOINCREMENT PARA LA PK DE TIPO INT, esto se aplica al hacer el insert into, se debera poner con null para que los vaya 		aumentando automaticamanete (se supone que null buscara el siguiente numero mas alto, si ponemos 76 y el siguiente null ira al 		77, si se borra la tabla se auments a partir de donde se quedo);
+		CREATE TABLE alumnos (id int auto_increment, nom varchar(30) not null, primary key(id)));
+		INSERT INTO alumnos(1,'ana');
+		INSERT INTO alumnos(null, 'pep');
+
+	CREATE TABLE alumnos (id int auto_increment, nom varchr(39) not null default 'pepe', primary key(id));
+
+	ALTER TABLE alumnos nom DROP DEFAULT;
+
+	ALTER TABLE alumnos alter nom ADD DEFAULT='pepe';
+
+	ALTER TABLE alumnos ADD enMay bool;  /*el insert si es 1 sera true 0 es false*/
+
+	* para el insert into de numeros incremetnales, si no se quiere especificar un numero sino que ponga el siguiente vacio se 		debera poner "null" en el campo que corresponde a la pk
+
+	copia seguridad (en un terminal no en mysql):
+		mysqldump --user=root --password=practicas nombreBaseDatos > nombreArchivoGuardado.sql
+
+		limpiar el archivo, quitar los comentarios del inicio, 
+				DROP DATABASE IF EXISTS BDALUMNOS;
+				CREATE DATABASE BDALUMNOS;
+				USE BDALUMNOS;
+				quitar los drop generados ya eliminado antes toda la base de datos anterior
+				eliminar comentarios y lock, block
+				
+	cargar un sql(desde fuera):
+		mysql --user=root --password=practicas nombreBaseDatos < nombreArchivoGuardado.sql
+	cargar un sql(desde dentro):
+		source nombreArchivoGuardado.sql;
+		
+	
+
+	DML	(insert into nombreT values ( valor1,.......)
+		select * from nombreT;
+		select col1, col2 from nombreT;
+
+	DDL	copiar tablas:	solo estructura (CREATE TABLE table2 LIKE table1;) /*copia solo estrucutra sin registros*/
+		copiar louego los registros:	(INSERT INTO table2 SELECT * FROM table1;)
+
+		Otra forma seria copiar tabla y datos pero no conserva restricciones de FK, indices, PK, etc.
+		forma:	(CREATE TABLE table3 AS SELECT * FROM table1;)
+------------------------------------------------------------------------------------------------------
+*****************************************************************************************************
+----------------------------------------------------------------------------------------------------
+
+apuntes:
+	se puede llamar al source pruba.sql
+	comandos CREATE, ALTER, DROP
+
+	inodb comprueba que la tabla exista a donde ser quiera crear(engine=inodb)
+
+	DDL = 
+	DDL = INSERT UPDATE DELECT SELECT (consultar modificar añadir eliminar)
+	
+	ALTER sobre database solo permite modificar el "CHARACTER SET" o "COLLATE ";
+
+	
+
+--------------------------------------------------------------------------------------------------
+**************************************************************************************************
+--------------------------------------------------------------------------------------------------
+CREATE DATABASE PRUEBA;
+
+USE PRUEBA;
+
+CREATE TABLE IF NOT EXISTS Departamentos(id int NOT NULL, nombre varchar(30) UNIQUE NOT NULL, presupuesto decimal(8,2), PRIMARY KEY (id));
+
+CREATE TABLE IF NOT EXISTS Empleados(id int NOT NULL, nombre varchar(30) NOT NULL, idDepto int, fechaNac date, FOREING KEY (idDepto) REFERENCES Departamentos(id) ON DELETE CASCADE ON UPDATE CASCADE, PRIMARY KEY (id));
+
+INSERT INTO ALUMNOS VALUES (1,’PEPE LOPEZ’,’2000-11-23’,1);
+
+SELECT * FROM MODULOS;
+
+DESCRIBE ALUMNOS;
+
+SHOW CREATE TABLE ALUMNOS;
